@@ -1,0 +1,32 @@
+#blueH1{
+    color: #348dff;
+}
+.containerVid {position: relative;}
+.container video {
+    position:relative;
+    z-index:0;
+}
+.overlay{
+    color: white;
+    position:absolute;
+    margin: "auto";
+    /* margin-top: 15%;
+    margin-left: 40%; */
+    top:30%;
+    left:39%;
+    z-index:1;
+}
+.overlay h1{
+    font-size: 80px;
+}
+
+
+.topText {
+    color: white;
+    /* font-size: 20px; */
+    align-self: center;
+}
+
+.navbar.transparent.navbar-inverse .navbar-inner {
+    background: rgba(0,0,0,1);
+ }

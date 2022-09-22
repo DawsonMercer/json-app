@@ -1,0 +1,59 @@
+{
+    "logLevel": "info",
+    "port": 8888, 
+    "Sources": [
+        {
+            "type": "file",
+            "file": "./R400NG.log",
+            "delay": 500, 
+            "messages" : [
+                { "!AIVDM": {"type": "ais" }},
+                { "$GPGGA": {"type": "gps", "hololensPositionSource": true }}
+            ]
+        },
+        {
+            "type": "fixedPosition",
+            "hololensPositionSource": true,
+            "lat": 47.5654897024703,
+            "lon": -52.704771194742875
+        },
+        {
+            "type": "remoteRadar",
+            "hololensPositionSource": false,
+            "address": "ws://192.168.22.33:8888"
+        },
+        {
+            "type": "localRadar",
+            "hololensPositionSource": true,
+            "radar_object_name": "RadarInformation",
+            "file": {
+                "dataLocation": {
+                    "dataFiles": [
+                        "kml/*.kml"
+                    ]
+                }
+            }
+        },
+        {
+            "type": "TCP",
+            "address": "127.0.0.1",
+            "port": 3000,
+            "messages" : [
+                { "!AIVDM": {"type": "ais" }},
+                { "$GPGGA": {"type": "gps", "hololensPositionSource": false }}
+            ]
+        },
+        {
+            "type": "UDP",
+            "port": 51681,
+            "logfile": "R400NG-20220518",
+            "messages" : [
+                { "!AIVDM": {"type": "ais" }},
+                { "$GPGGA": {"type": "gps", "hololensPositionSource": true }}
+            ]
+        }
+
+    ],
+    "mmsiDBFolder" :  "mmsiDB"
+}
+
