@@ -3,10 +3,10 @@ import axios from "axios";
 import "./App.css";
 import React, { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import EditFile from "./EditFile";
-import CreateFile from "./CreateFile";
-import NavBar from "./NavBar";
-import DotVideoTitle from "./DotVideoTitle";
+import EditFile from "./components/EditFile";
+import CreateFile from "./components/CreateFile";
+import NavBar from "./components/NavBar";
+import DotVideoTitle from "./components/DotVideoTitle";
 import Squares from "../../json-app/src/images/Squares.png";
 // import { Button } from "react-bootstrap"
 import VideoDot from "../../../frontend/json-app/src/images/VideoDots.mp4";

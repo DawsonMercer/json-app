@@ -1,7 +1,7 @@
 import { Navbar, Container, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import EngageIcon from "../../../frontend/json-app/src/images/EngageTech.png";
-import "./styles.css";
+import EngageIcon from "../images/EngageTech.png";
+import "../styles.css";
 
 const NavBar = () => {
   return (

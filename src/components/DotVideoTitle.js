@@ -1,8 +1,7 @@
 import React from "react";
-import VideoDot from "../../../frontend/json-app/src/images/VideoDots.mp4";
-import ArrowDown from "../../../frontend/json-app/src/images/white-down-arrow.png";
+import VideoDot from "../images/VideoDots.mp4";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./styles.css";
+import "../styles.css";
 
 const DotVideoTitle = () => {
   let words = "";
