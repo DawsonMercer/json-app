@@ -1,4 +1,5 @@
 import React from "react";
+// @ts-ignore
 import VideoDot from "../images/VideoDots.mp4";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles.css";

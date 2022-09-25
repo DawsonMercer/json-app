@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import axios from "axios";
 import "./App.css";
 import React, { useEffect, useState } from "react";
@@ -69,7 +68,7 @@ function App() {
         <CreateFile />
       </div> */}
 
-      <img src={Squares} />
+      <img src={Squares} width="100%" />
       {/* <video height="" width="100%" autoPlay muted loop>
         <source src={VideoDot} type="video/mp4" />
       </video> */}

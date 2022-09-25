@@ -78,6 +78,7 @@ const FillableForm = () => {
     //     headers: {'Content-type': 'application/json'}
     // })
     window.alert(`${newFileName}.json File Created`);
+    window.location.reload();
   };
 
   return (
@@ -90,7 +91,7 @@ const FillableForm = () => {
       }}
     >
       <h1>Create a JSON file</h1>
-      <div style={{ width: "90%", margin: "auto" }}>
+      <div style={{ width: "65%", margin: "auto" }}>
         <Form
           id="createFileForm"
           method="post"

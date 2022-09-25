@@ -9,6 +9,7 @@ const CreateFile = () => {
         background: "url(images/Squares.png) black",
       }}
     >
+      <br></br>
       <FillableForm />
     </div>
   );

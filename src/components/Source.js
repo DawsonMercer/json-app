@@ -19,7 +19,7 @@ const Source = ({ setAllSources, allSources }) => {
   };
 
   const confirmInfo = (event) => {
-    event.preventDefault();
+    event.preventDefault();  
     source.type = type;
     source.messages = messages;
     console.log(source);

@@ -47,7 +47,7 @@ const EditFile = () => {
     fileInfo.Sources = allSources;
     console.log(fileInfo);
     setFileInfo(fileInfo);
-    setAllSources(allSources);
+    // setAllSources(allSources);
     e.target.textContent = "Source Removed";
     e.target.disabled = true;
 
@@ -56,18 +56,34 @@ const EditFile = () => {
   };
 
   const updateFile = async (newFile) => {
-    await fetch(`/updateFile`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newFile),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Success:", data);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    try {
+      const response = await axios.put(
+        "http://localhost:3001/update-File",
+        newFile,
+        config
+      );
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
+
+    // await fetch(`/updateFile`, {
+    //   method: "PUT",
+    //   headers: { "Content-Type": "application/json" },
+    //   body: JSON.stringify(newFile),
+    // })
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     console.log("Success:", data);
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error:", error);
+    //   });
   };
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -113,7 +129,7 @@ const EditFile = () => {
       >
         <h1>Edit Config File</h1>
         {fileInfo && (
-          <div style={{ width: "90%", margin: "auto" }}>
+          <div style={{ width: "65%", margin: "auto" }}>
             <Form>
               <Form.Label>logLevel</Form.Label>
               <Form.Control
