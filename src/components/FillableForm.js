@@ -13,37 +13,7 @@ const FillableForm = () => {
   const [allSources, setAllSources] = useState([]);
   // const [sourceInfo, setSourceInfo] = useState([]);
 
-  // let sourceInfo = []
-  // const mapArray = [{1:1}, {2:2}, {3:3}, {4:4}, {5:5}]
-
-  const displaySources = (event) => {
-    // console.log(event.currentTarget.id);
-    // setNumOfSources(event.currentTarget.value);
-    // console.log(numOfSources)
-  };
-
-  useEffect(() => {
-    // setSourceInfo([...Array(numOfSources).keys()])
-  }, []);
-
-  useEffect(() => {
-    // console.log(numOfSources)
-    // let newArray = [...Array(numOfSources).keys()]
-    // console.log(newArray);
-    // // setSourceInfo([...newArray])
-    // console.log(sourceInfo);
-  }, [numOfSources]);
-
-  // const handleChange = (event) =>{
-  //     console.log(event.target.value);
-  //     console.log(event.target.value);
-  //     setNumOfSources(event.target.value)
-
-  //     console.log(numOfSources)
-
-  // }
-
-  const createJson = (event) => {
+  const createJson = async (event) => {
     event.preventDefault();
     const newFileName = fileName;
     const newFile = {
@@ -61,24 +31,24 @@ const FillableForm = () => {
     // setMmsiDBFolder('')
     // setAllSources([]);
 
-    axios
-      .post(`/createFile/${newFileName}`, newFile)
-      .then(() => {
-        window.alert(`${newFileName}.json File Created`);
-        console.log("File Created");
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
 
-    // fetch(`/api/createFile/${newFileName}`,{
-    //     method: "POST",
-    //     body: JSON.stringify(newFile),
-
-    //     headers: {'Content-type': 'application/json'}
-    // })
-    window.alert(`${newFileName}.json File Created`);
-    window.location.reload();
+    try {
+      const response = await axios.post(
+        `http://localhost:3001/createFile/${newFileName}`,
+        newFile,
+        config
+      );
+      console.log(response);
+      window.alert(`${newFileName}.json File Created`);
+      window.location.reload();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -139,6 +109,7 @@ const FillableForm = () => {
             <option value="3">3</option>
             <option value="4">4</option>
             <option value="5">5</option>
+            <option value="6">6</option>
           </Form.Select>
           <div id="allSources">
             <hr></hr>
@@ -149,6 +120,7 @@ const FillableForm = () => {
                   <Source
                     allSources={allSources}
                     setAllSources={setAllSources}
+                    index={index}
                   />
                 </>
               );
@@ -162,7 +134,6 @@ const FillableForm = () => {
             Create .json
           </Button>
 
-          {/* <button type="button" id="nextButton">Next</button> */}
           <Button
             type="reset"
             id="resetButton"

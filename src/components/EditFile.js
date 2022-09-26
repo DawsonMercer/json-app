@@ -33,25 +33,18 @@ const EditFile = () => {
   }, []);
 
   const onRemove = (e, toRemove, index) => {
-    // const updatedSources = fileInfo.Sources.slice(0, index-1).concat(fileInfo.Sources.slice(index, fileInfo.Sources.length))
-    // console.log(updatedSources);
-    // console.log(index)
-    // const removeIndex = allSources.splice(index,1)
-    // console.log(removeIndex)
-    // console.log(allSources)
-    // setAllSources(allSources)
     e.preventDefault();
+    console.log(`SOURCE TO REMOVE ${index + 1}`);
 
     allSources.splice(index, 1);
-    console.log(allSources);
-    fileInfo.Sources = allSources;
-    console.log(fileInfo);
-    setFileInfo(fileInfo);
-    // setAllSources(allSources);
+    // fileInfo.Sources = allSources;
+    // console.log(fileInfo);
+    // setFileInfo(fileInfo);
+    setAllSources(allSources);
     e.target.textContent = "Source Removed";
     e.target.disabled = true;
 
-    // setFileInfo();
+    console.log(allSources);
     console.log(toRemove);
   };
 
@@ -63,7 +56,7 @@ const EditFile = () => {
     };
     try {
       const response = await axios.put(
-        "http://localhost:3001/update-File",
+        "http://localhost:3001/updateFile",
         newFile,
         config
       );
@@ -71,27 +64,14 @@ const EditFile = () => {
     } catch (err) {
       console.log(err);
     }
-
-    // await fetch(`/updateFile`, {
-    //   method: "PUT",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify(newFile),
-    // })
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     console.log("Success:", data);
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error:", error);
-    //   });
   };
   const handleSubmit = (e) => {
     e.preventDefault();
     const newFile = {
       logLevel: logLevel,
       port: port,
-      mmsiDBFolder: mmsiDBFolder,
       Sources: allSources,
+      mmsiDBFolder: mmsiDBFolder,
     };
     console.log(newFile);
     updateFile(newFile);
@@ -99,13 +79,6 @@ const EditFile = () => {
   useEffect(() => {
     console.log(allSources);
     console.log(fileInfo.Sources);
-    // const newFileInfo = {
-    //     logLevel: fileInfo.logLevel,
-    //     port: fileInfo.port,
-    //     Sources: allSources,
-    //     mmsiDBFolder: fileInfo.mmsiDBFolder
-    // }
-    // setFileInfo(newFileInfo)
   }, [allSources]);
 
   if (!fileInfo || !allSources) {
@@ -152,7 +125,7 @@ const EditFile = () => {
                 onChange={(e) => setMmsiDBFolder(e.target.value)}
               />
               {allSources.map((source, index) => {
-                // console.log(allSources[index]);
+                // console.log(`${allSources[index]}... ${index}`);
                 return (
                   <>
                     <br></br>
@@ -168,43 +141,16 @@ const EditFile = () => {
                           setAllSources={setAllSources}
                         />
                       );
-                      // return(
-                      //     <>
-
-                      //         {key === "messages" &&
-                      //         <>
-                      //         <label><strong>{key}</strong></label>
-                      //         {/* {key.map((message, messageIndex)=>{
-                      //             <>
-                      //             <h1>poop</h1>
-                      //             <input defaultValue={message}/>
-                      //             </>
-                      //         })} */}
-
-                      //         </>
-                      //         }
-                      //         {key === 'type' &&
-                      //         <>
-                      //         <h4>Type: <strong>{source[key]}</strong></h4>
-                      //         </>}
-                      //         {key !== 'type' && key!== 'messages' &&
-                      //         <>
-                      //         <label>{key}</label>
-                      //         <input type="text" defaultValue={source[key]}/>
-                      //         </>
-                      //         }
-                      //     </>
-                      // )
                     })}
-                    {/* <button onClick={confirmInfo}>Confirm Source</button> */}
+
                     <br></br>
-                    <Button
+                    {/* <Button
                       variant="outline-danger"
                       size="sm"
                       onClick={(e) => onRemove(e, source, index)}
                     >
                       Remove Source {index + 1}
-                    </Button>
+                    </Button> */}
                     <br></br>
                     <br></br>
                     <hr />

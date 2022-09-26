@@ -3,7 +3,7 @@ import { getDropdownMenuPlacement } from "react-bootstrap/esm/DropdownMenu";
 import { Form, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-const Source = ({ setAllSources, allSources }) => {
+const Source = ({ setAllSources, allSources, index }) => {
   const [labels, setLabels] = useState(["file", "delay", "messages"]);
   const [type, setType] = useState("file");
   const [messages] = useState([]);
@@ -19,15 +19,19 @@ const Source = ({ setAllSources, allSources }) => {
   };
 
   const confirmInfo = (event) => {
-    event.preventDefault();  
+    event.preventDefault();
     source.type = type;
-    source.messages = messages;
+    if (type === "file" || type === "TCP") {
+      source.messages = messages;
+    }
     console.log(source);
     setAllSources([...allSources, source]);
     console.log(allSources);
     // event.target.setAttribute("hidden", "hidden");
     event.target.textContent = "Source Confirmed";
     event.target.disabled = true;
+    let typeSelect = document.getElementById(`sourceType${index}`);
+    typeSelect.disabled = true;
   };
 
   const getTypeLabels = (type) => {
@@ -65,7 +69,7 @@ const Source = ({ setAllSources, allSources }) => {
   return (
     <>
       <Form.Label>Source Type:</Form.Label>
-      <Form.Select id="sourceType" onChange={changeType}>
+      <Form.Select id={`sourceType${index}`} onChange={changeType}>
         <option value="file">File</option>
         <option value="fixedPosition">Fixed Position</option>
         <option value="remoteRadar">Remote Radar</option>
