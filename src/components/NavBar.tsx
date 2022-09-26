@@ -1,9 +1,10 @@
-import React from "react";
+import React, {FC} from "react";
 import { Navbar, Container, Nav } from "react-bootstrap";
+// @ts-ignore
 import EngageIcon from "../images/EngageTech.png";
 import "../styles.css";
 
-const NavBar = () => {
+const NavBar:FC = () => {
   return (
     <>
       <Navbar bg=".bg-*" variant="dark" fixed="top">

@@ -1,11 +1,11 @@
-import React from "react";
+import React, {FC} from "react";
 // @ts-ignore
 import VideoDot from "../images/VideoDots.mp4";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles.css";
 
-const DotVideoTitle = () => {
-  let words = "";
+const DotVideoTitle: FC = () => {
+  let words: string = "";
   switch (window.location.pathname) {
     case "/":
       words = "Editor";
@@ -28,7 +28,6 @@ const DotVideoTitle = () => {
         </div>
         <video
           preload="true"
-          // className="containerVid"
           height=""
           width="100%"
           autoPlay
@@ -38,11 +37,6 @@ const DotVideoTitle = () => {
           <source src={VideoDot} type="video/mp4" />
         </video>
       </div>
-      {/* <div className="container" width="100%">
-        <video height="" width="100%" autoPlay muted loop>
-          <source src={VideoDot} type="video/mp4" />
-        </video>
-      </div> */}
     </>
   );
 };

@@ -1,20 +1,30 @@
-import React, { useState, useEffect } from "react";
+import React, { FC, useState, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
-import EditSources from "./EditSources";
+// @ts-ignore
+import EditSources from "./EditSources.tsx";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-const EditFile = () => {
-  const [fileInfo, setFileInfo] = useState({});
-  const [logLevel, setLogLevel] = useState("");
-  const [port, setPort] = useState("");
-  const [mmsiDBFolder, setMmsiDBFolder] = useState("");
-  const [allSources, setAllSources] = useState([]);
+interface FileObject{
+  logLevel: string;
+  port: number;
+  Sources: object[];
+  mmsiDBFolder: string;
+
+}
+
+const EditFile: FC = () => {
+  // @ts-ignore
+  const [fileInfo, setFileInfo] = useState<FileObject>({});
+  const [logLevel, setLogLevel] = useState<string>("");
+  const [port, setPort] = useState<string>("");
+  const [mmsiDBFolder, setMmsiDBFolder] = useState<string>("");
+  const [allSources, setAllSources] = useState<object[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       axios
-        .get("/db/config.json")
+        .get("/db/newConfig.json")
         .then((res) => {
           setFileInfo(res.data);
           setAllSources(res.data.Sources);
@@ -25,28 +35,28 @@ const EditFile = () => {
         })
         .catch((err) => console.log(err));
     };
-    console.log(fileInfo);
-    console.log(fileInfo.Sources);
+    // console.log(fileInfo);
+    // console.log(fileInfo?.Sources);
 
     fetchData();
     console.log("use effect engaged");
   }, []);
 
-  const onRemove = (e, toRemove, index) => {
-    e.preventDefault();
-    console.log(`SOURCE TO REMOVE ${index + 1}`);
+  // const onRemove = (e, toRemove, index) => {
+  //   e.preventDefault();
+  //   console.log(`SOURCE TO REMOVE ${index + 1}`);
 
-    allSources.splice(index, 1);
-    // fileInfo.Sources = allSources;
-    // console.log(fileInfo);
-    // setFileInfo(fileInfo);
-    setAllSources(allSources);
-    e.target.textContent = "Source Removed";
-    e.target.disabled = true;
+  //   allSources.splice(index, 1);
+  //   // fileInfo.Sources = allSources;
+  //   // console.log(fileInfo);
+  //   // setFileInfo(fileInfo);
+  //   setAllSources(allSources);
+  //   e.target.textContent = "Source Removed";
+  //   e.target.disabled = true;
 
-    console.log(allSources);
-    console.log(toRemove);
-  };
+  //   console.log(allSources);
+  //   console.log(toRemove);
+  // };
 
   const updateFile = async (newFile) => {
     const config = {
@@ -108,21 +118,21 @@ const EditFile = () => {
               <Form.Control
                 type="text"
                 defaultValue={fileInfo.logLevel}
-                onChange={(e) => setLogLevel(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setLogLevel(e.target.value)}
               />
 
               <Form.Label>port</Form.Label>
               <Form.Control
                 type="text"
                 defaultValue={fileInfo.port}
-                onChange={(e) => setPort(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPort(e.target.value)}
               />
 
               <Form.Label>mmsiFolder</Form.Label>
               <Form.Control
                 type="text"
                 defaultValue={fileInfo.mmsiDBFolder}
-                onChange={(e) => setMmsiDBFolder(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setMmsiDBFolder(e.target.value)}
               />
               {allSources.map((source, index) => {
                 // console.log(`${allSources[index]}... ${index}`);

@@ -1,19 +1,24 @@
-import React, { useEffect, useState } from "react";
-import Source from "./Source";
+import React, { FC, useEffect, useState } from "react";
+// @ts-ignore
+import Source from "./Source.tsx";
 import axios from "axios";
 import { Form, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-const FillableForm = () => {
-  const [fileName, setFileName] = useState("");
-  const [logLevel, setLogLevel] = useState("");
-  const [port, setPort] = useState("");
-  const [mmsiDBFolder, setMmsiDBFolder] = useState("");
-  const [numOfSources, setNumOfSources] = useState(2);
-  const [allSources, setAllSources] = useState([]);
+// interface AllSourcesObject{
+//   SourcesObejct
+// }
+
+const FillableForm: FC = () => {
+  const [fileName, setFileName] = useState<string | null>("");
+  const [logLevel, setLogLevel] = useState<string | null>("");
+  const [port, setPort] = useState<number | null>(null);
+  const [mmsiDBFolder, setMmsiDBFolder] = useState<string | null>("");
+  const [numOfSources, setNumOfSources] = useState<number>(2);
+  const [allSources, setAllSources] = useState<object[]>([]);
   // const [sourceInfo, setSourceInfo] = useState([]);
 
-  const createJson = async (event) => {
+  const createJson = async (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
     const newFileName = fileName;
     const newFile = {
@@ -72,28 +77,28 @@ const FillableForm = () => {
           <Form.Control
             type="text"
             id="fileName"
-            onChange={(e) => setFileName(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFileName(e.target.value)}
           />
 
           <Form.Label>logLevel</Form.Label>
           <Form.Control
             type="text"
             id="logLevel"
-            onChange={(e) => setLogLevel(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setLogLevel(e.target.value)}
           />
 
           <Form.Label>Port</Form.Label>
           <Form.Control
             type="text"
             id="port"
-            onChange={(e) => setPort(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPort(e.target.value)}
           />
           <br />
           <Form.Label>mmsiDBFolder</Form.Label>
           <Form.Control
             type="text"
             id="mmsiDBFolder"
-            onChange={(e) => setMmsiDBFolder(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setMmsiDBFolder(e.target.value)}
           />
 
           <Form.Label>Number of Sources:</Form.Label>
@@ -113,7 +118,7 @@ const FillableForm = () => {
           </Form.Select>
           <div id="allSources">
             <hr></hr>
-            {[...Array(numOfSources).keys()].map((s, index) => {
+            {[...Array(numOfSources).keys()].map((s, index:number) => {
               return (
                 <>
                   <h3>Source {index + 1}</h3>

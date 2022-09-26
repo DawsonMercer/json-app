@@ -1,39 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, {FC,useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-const EditSources = ({
-  source,
-  sourcekey,
-  i,
-  sourceObjectIndex,
-  allSources,
-  setAllSources,
-}) => {
-  const [sourceKeyValue, setSourceKeyValue] = useState("");
+interface Props{
+  source: object;
+  sourcekey: string;
+  i: number;
+  sourceObjectIndex: number;
+  allSources: object[];
+  setAllSources: any
+}
 
-  const handleChange = (event, path) => {
-    // let sourcePath = path !== undefined ? source[sourcekey].path : source[sourcekey]
-    // if(sourcekey === "message"){
-    //     source[sourcekey][path]
-    // }
+const EditSources:FC<Props> = ({source,sourcekey,i,sourceObjectIndex,allSources,setAllSources}) => {
+
+  const handleChange = (event) => {
     source[sourcekey] = event.target.value;
     allSources[sourceObjectIndex] = source;
     setAllSources(allSources);
-    // console.log(allSources[sourceObjectIndex])
     console.log(allSources);
   };
-
-  useEffect(() => {
-    // console.log(source)
-    // console.log(allSources[sourceObjectIndex])
-  }, []);
-
-  useEffect(() => {
-    // console.log(sourceKeyValue)
-    // console.log(source[sourcekey])
-  }, [sourceKeyValue]);
-
   return (
     <>
       {sourcekey === "messages" && (
@@ -42,7 +27,7 @@ const EditSources = ({
           <h5>
             <strong>Messages</strong>
           </h5>
-          {source[sourcekey].map((message, messageIndex) => {
+          {source[sourcekey].map((message: object[], messageIndex: number) => {
             return Object.keys(message).map((messagekey, mk) => {
               return (
                 <>
@@ -97,7 +82,7 @@ const EditSources = ({
       )}
       {sourcekey === "file" &&
         source[sourcekey].dataLocation !== undefined &&
-        source[sourcekey].dataLocation.dataFiles.map((data, i) => {
+        source[sourcekey].dataLocation.dataFiles.map((data: string[], i: number) => {
           return (
             <>
               <br></br>

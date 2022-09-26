@@ -1,17 +1,17 @@
 import axios from "axios";
 import "./App.css";
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import EditFile from "./components/EditFile";
-import CreateFile from "./components/CreateFile";
-import NavBar from "./components/NavBar";
-import DotVideoTitle from "./components/DotVideoTitle";
+import EditFile from "./components/EditFile.tsx";
+import CreateFile from "./components/CreateFile.tsx";
+import NavBar from "./components/NavBar.tsx";
+import DotVideoTitle from "./components/DotVideoTitle.tsx";
 import Squares from "../../json-app/src/images/Squares.png";
 // import { Button } from "react-bootstrap"
 import VideoDot from "../../../frontend/json-app/src/images/VideoDots.mp4";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-function App() {
+const App: FC= ()=> {
   const [displayEdit, setDisplayEdit] = useState(false);
   const [displayCreate, setDisplayCreate] = useState(false);
 

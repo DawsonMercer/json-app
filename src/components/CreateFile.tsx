@@ -1,10 +1,10 @@
-import React from "react";
-import FillableForm from "./FillableForm";
-const CreateFile = () => {
+import React, {FC} from "react";
+// @ts-ignore
+import FillableForm from "./FillableForm.tsx";
+const CreateFile: FC = () => {
   return (
     <div
       style={{
-        // backgroundImage: "linear-gradient(black, navy, black)",
         color: "white",
         background: "url(images/Squares.png) black",
       }}
