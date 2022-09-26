@@ -4,6 +4,7 @@ import { Navbar, Container, Nav } from "react-bootstrap";
 import EngageIcon from "../images/EngageTech.png";
 import "../styles.css";
 
+// NavBar Component that displays all pages and handles Link
 const NavBar:FC = () => {
   return (
     <>

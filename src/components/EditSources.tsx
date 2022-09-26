@@ -1,5 +1,5 @@
-import React, {FC,useEffect, useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import React, {FC} from "react";
+import { Form } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 interface Props{
@@ -11,13 +11,14 @@ interface Props{
   setAllSources: any
 }
 
+// Component that parses source info into form inputs
 const EditSources:FC<Props> = ({source,sourcekey,i,sourceObjectIndex,allSources,setAllSources}) => {
 
+  // handles change of form inputs
   const handleChange = (event) => {
     source[sourcekey] = event.target.value;
     allSources[sourceObjectIndex] = source;
     setAllSources(allSources);
-    console.log(allSources);
   };
   return (
     <>
@@ -31,13 +32,8 @@ const EditSources:FC<Props> = ({source,sourcekey,i,sourceObjectIndex,allSources,
             return Object.keys(message).map((messagekey, mk) => {
               return (
                 <>
-                  {/* <Form.Label>
-                    <strong>{messagekey}</strong>
-                  </Form.Label> */}
                   <br></br>
-                  {/* <label><strong>{messagekey[mk]}</strong></label> */}
                   {Object.keys(message[messagekey]).map((m, mi) => {
-                    // console.log(Object.entries(message[messagekey])[mi][0]);
                     return (
                       <>
                         <Form.Label>
@@ -47,15 +43,11 @@ const EditSources:FC<Props> = ({source,sourcekey,i,sourceObjectIndex,allSources,
                         <Form.Control
                           defaultValue={message[messagekey][m]}
                           onChange={(event) => {
-                            console.log(
-                              source[sourcekey][messageIndex][messagekey][m]
-                            );
                             source[sourcekey][messageIndex][messagekey][m] =
                               event.target.value;
 
                             allSources[sourceObjectIndex] = source;
                             setAllSources(allSources);
-                            console.log(allSources);
                           }}
                         ></Form.Control>
                       </>
@@ -63,11 +55,6 @@ const EditSources:FC<Props> = ({source,sourcekey,i,sourceObjectIndex,allSources,
                   })}
                 </>
               );
-
-              // console.log(message[key]);
-              // message[key].map((field)=>{
-              //     console.log(field);
-              // })
             });
           })}
         </>
@@ -90,13 +77,10 @@ const EditSources:FC<Props> = ({source,sourcekey,i,sourceObjectIndex,allSources,
               <Form.Control
                 defaultValue={data}
                 onChange={(event) => {
-                  console.log(event.target.value);
                   source[sourcekey].dataLocation.dataFiles[i] =
                     event.target.value;
-                  console.log(source[sourcekey].dataLocation.dataFiles);
                   allSources[sourceObjectIndex] = source;
                   setAllSources(allSources);
-                  console.log(allSources);
                 }}
               />
             </>

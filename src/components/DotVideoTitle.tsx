@@ -4,6 +4,8 @@ import VideoDot from "../images/VideoDots.mp4";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles.css";
 
+// Simple Component to render Lidar Dot video
+
 const DotVideoTitle: FC = () => {
   let words: string = "";
   switch (window.location.pathname) {

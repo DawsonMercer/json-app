@@ -5,19 +5,18 @@ import axios from "axios";
 import { Form, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-// interface AllSourcesObject{
-//   SourcesObejct
-// }
 
+// Component that handles the creation of the file
 const FillableForm: FC = () => {
   const [fileName, setFileName] = useState<string | null>("");
   const [logLevel, setLogLevel] = useState<string | null>("");
-  const [port, setPort] = useState<number | null>(null);
+  const [port, setPort] = useState<number | null| string>(null);
   const [mmsiDBFolder, setMmsiDBFolder] = useState<string | null>("");
   const [numOfSources, setNumOfSources] = useState<number>(2);
   const [allSources, setAllSources] = useState<object[]>([]);
-  // const [sourceInfo, setSourceInfo] = useState([]);
 
+  // on submit handles creation of json file
+  // makes node call to server to create the file
   const createJson = async (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
     const newFileName = fileName;
@@ -27,14 +26,6 @@ const FillableForm: FC = () => {
       Sources: allSources,
       mmsiDBFolder: mmsiDBFolder,
     };
-
-    console.log(newFileName);
-    console.log(newFile);
-    // setFileName('')
-    // setLogLevel('');
-    // setPort('');
-    // setMmsiDBFolder('')
-    // setAllSources([]);
 
     const config = {
       headers: {

@@ -22,33 +22,31 @@ interface GpggaMessagesObject{
   hololensPositionSource: null| string| boolean;
 }
 
-
+// Component that handles creation of individual sources
 const Source: FC<Props> = ({ setAllSources, allSources, index }) => {
   const [labels, setLabels] = useState<string[]>(["file", "delay", "messages"]);
   const [type, setType] = useState<string>("file");
   const [messages] = useState<object[]>([]);
   const [aivdmMessages] = useState<AivdMessagesObject>({ type: "" });
   const [gpggaMessages] = useState<GpggaMessagesObject>({ type: "", hololensPositionSource: null });
-  // let source: SourceObject;
   let source= {};
 
+  // handles change of the Source Type
   const handleChange = (event) => {
-    // source.type = event.currentTarget.id;
     let key = event.currentTarget.id;
     source[key] = event.currentTarget.value;
-    console.log(source);
   };
 
+  // confirms Source info to be added to the file
   const confirmInfo = (event) => {
     event.preventDefault();
+    // @ts-ignore
     source.type = type;
     if (type === "file" || type === "TCP" || type==="UDP") {
+      // @ts-ignore
       source.messages = messages;
     }
-    console.log(source);
     setAllSources([...allSources, source]);
-    console.log(allSources);
-    // event.target.setAttribute("hidden", "hidden");
     event.target.textContent = "Source Confirmed";
     event.target.disabled = true;
     let typeSelect = document.getElementById(`sourceType${index}`);
@@ -56,6 +54,7 @@ const Source: FC<Props> = ({ setAllSources, allSources, index }) => {
     typeSelect.disabled = true;
   };
 
+  // get the type labels for the source 
   const getTypeLabels = (type: string) => {
     if (type === "file") {
       setLabels(["file", "delay", "messages"]);
@@ -76,20 +75,17 @@ const Source: FC<Props> = ({ setAllSources, allSources, index }) => {
       setLabels(["logFile", "port", "messages"]);
     }
   };
+
+  // handles the change of the Source Type to display correct fields
   const changeType = (event) => {
-    console.log(event.target.value);
     setType(event.target.value);
     getTypeLabels(type);
-    // console.log(type);
   };
 
+  // update type labels on change
   useEffect(() => {
     getTypeLabels(type);
   }, [type]);
-
-  useEffect(() => {
-    console.log(messages);
-  }, [messages]);
 
   return (
     <>
@@ -106,7 +102,6 @@ const Source: FC<Props> = ({ setAllSources, allSources, index }) => {
       {labels.map((label) => {
         return (
           <>
-            {/* <Form.Label>{label}</Form.Label> */}
             {label === "messages" && (
               <>
                 <h5>
@@ -121,8 +116,6 @@ const Source: FC<Props> = ({ setAllSources, allSources, index }) => {
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     aivdmMessages.type = e.target.value;
                     messages[0] = { "!AIVDM": aivdmMessages };
-                    // console.log(messages);
-                    console.log(aivdmMessages);
                   }}
                 />
                 <Form.Label>
@@ -134,8 +127,6 @@ const Source: FC<Props> = ({ setAllSources, allSources, index }) => {
                     // setAivdmMessages({"$GPGGA":{"type": e.target.value}});
                     gpggaMessages.type = e.target.value;
                     messages[1] = { $GPGGA: gpggaMessages };
-                    // console.log(messages);
-                    console.log(gpggaMessages);
                   }}
                 />
                 <Form.Label>
@@ -146,8 +137,6 @@ const Source: FC<Props> = ({ setAllSources, allSources, index }) => {
                     const target = e.target as HTMLTextAreaElement;
                     gpggaMessages.hololensPositionSource = target.value;
                     messages[1] = { $GPGGA: gpggaMessages };
-                    // console.log(messages);
-                    console.log(gpggaMessages);
                   }}
                 >
                   <option value={""}></option>
@@ -168,7 +157,7 @@ const Source: FC<Props> = ({ setAllSources, allSources, index }) => {
         );
       })}
       <br></br>
-      <Button onClick={confirmInfo} size="sm" variant="outline-primary">
+      <Button onClick={confirmInfo} size="sm" variant="primary">
         Confirm Source Info
       </Button>
       <br></br>

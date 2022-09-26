@@ -13,6 +13,9 @@ interface FileObject{
 
 }
 
+// Component loads in config.json and displays its infomation in a form
+// upon submit, a new file is created. 
+
 const EditFile: FC = () => {
   // @ts-ignore
   const [fileInfo, setFileInfo] = useState<FileObject>({});
@@ -21,10 +24,11 @@ const EditFile: FC = () => {
   const [mmsiDBFolder, setMmsiDBFolder] = useState<string>("");
   const [allSources, setAllSources] = useState<object[]>([]);
 
+  // load in the config.json and set variable states that is used to fill out form
   useEffect(() => {
     const fetchData = async () => {
       axios
-        .get("/db/newConfig.json")
+        .get("/db/config.json")
         .then((res) => {
           setFileInfo(res.data);
           setAllSources(res.data.Sources);
@@ -35,29 +39,11 @@ const EditFile: FC = () => {
         })
         .catch((err) => console.log(err));
     };
-    // console.log(fileInfo);
-    // console.log(fileInfo?.Sources);
 
     fetchData();
-    console.log("use effect engaged");
   }, []);
 
-  // const onRemove = (e, toRemove, index) => {
-  //   e.preventDefault();
-  //   console.log(`SOURCE TO REMOVE ${index + 1}`);
-
-  //   allSources.splice(index, 1);
-  //   // fileInfo.Sources = allSources;
-  //   // console.log(fileInfo);
-  //   // setFileInfo(fileInfo);
-  //   setAllSources(allSources);
-  //   e.target.textContent = "Source Removed";
-  //   e.target.disabled = true;
-
-  //   console.log(allSources);
-  //   console.log(toRemove);
-  // };
-
+  // update the create a new config file on button submit
   const updateFile = async (newFile) => {
     const config = {
       headers: {
@@ -75,6 +61,8 @@ const EditFile: FC = () => {
       console.log(err);
     }
   };
+
+  // handle form submit 
   const handleSubmit = (e) => {
     e.preventDefault();
     const newFile = {
@@ -86,10 +74,6 @@ const EditFile: FC = () => {
     console.log(newFile);
     updateFile(newFile);
   };
-  useEffect(() => {
-    console.log(allSources);
-    console.log(fileInfo.Sources);
-  }, [allSources]);
 
   if (!fileInfo || !allSources) {
     return <h1>No File Selected</h1>;
@@ -135,7 +119,6 @@ const EditFile: FC = () => {
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setMmsiDBFolder(e.target.value)}
               />
               {allSources.map((source, index) => {
-                // console.log(`${allSources[index]}... ${index}`);
                 return (
                   <>
                     <br></br>
@@ -154,13 +137,6 @@ const EditFile: FC = () => {
                     })}
 
                     <br></br>
-                    {/* <Button
-                      variant="outline-danger"
-                      size="sm"
-                      onClick={(e) => onRemove(e, source, index)}
-                    >
-                      Remove Source {index + 1}
-                    </Button> */}
                     <br></br>
                     <br></br>
                     <hr />
