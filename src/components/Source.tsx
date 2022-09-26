@@ -124,7 +124,6 @@ const Source: FC<Props> = ({ setAllSources, allSources, index }) => {
                 <Form.Control
                   type="text"
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                    // setAivdmMessages({"$GPGGA":{"type": e.target.value}});
                     gpggaMessages.type = e.target.value;
                     messages[1] = { $GPGGA: gpggaMessages };
                   }}
